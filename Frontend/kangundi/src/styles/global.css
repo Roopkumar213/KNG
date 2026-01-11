@@ -1,0 +1,357 @@
+/* =========================
+   1. DESIGN SYSTEM 2026 (TOKENS)
+   "Emotion, Depth, Physics"
+========================= */
+:root {
+  /* --- PALETTE: Heritage Deep & Gold --- */
+  --c-void: #020617;
+  /* Blackest blue */
+  --c-depth: #0f172a;
+  /* Primary dark */
+  --c-surface: #1e293b;
+  /* Card surface */
+  --c-surface-high: #334155;
+  /* Hover state */
+
+  --c-gold: #d4a373;
+  /* Primary Accent */
+  --c-gold-dim: #9c7b5c;
+  --c-gold-light: #e6cba8;
+
+  --c-white: #ffffff;
+  --c-mist: rgba(255, 255, 255, 0.7);
+  --c-smoke: rgba(255, 255, 255, 0.4);
+
+  /* --- TYPOGRAPHY: Fluid Scale (Clamp) --- */
+  --f-display: 'Cormorant Garamond', serif;
+  --f-body: 'Outfit', sans-serif;
+
+  --text-hero: clamp(4rem, 10vw, 8rem);
+  --text-h1: clamp(3rem, 6vw, 4.5rem);
+  --text-h2: clamp(2.25rem, 5vw, 3.5rem);
+  --text-h3: clamp(1.5rem, 3vw, 2.25rem);
+  --text-body-lg: clamp(1.1rem, 2vw, 1.35rem);
+  --text-body: 1.05rem;
+
+  /* --- MOTION: Physics & Cinema --- */
+  /* "Apple" Spring */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* "Cinematic" Ease */
+  --ease-cinema: cubic-bezier(0.19, 1, 0.22, 1);
+  /* "Smooth" Scroll */
+  --ease-flow: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* --- DEPTH & GLASS --- */
+  --glass-nav: rgba(15, 23, 42, 0.85);
+  /* Dark mode base */
+  --glass-card: rgba(255, 255, 255, 0.03);
+  --blur-strong: blur(24px);
+  --blur-soft: blur(12px);
+
+  /* --- SPACING (Fluid) --- */
+  --space-unit: clamp(1rem, 2vw, 1.5rem);
+  --container-width: 1400px;
+}
+
+/* =========================
+   2. RESET & BASE
+========================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--c-void);
+  /* Dark mode default */
+}
+
+body {
+  font-family: var(--f-body);
+  color: var(--c-white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-color: var(--c-void);
+}
+
+::selection {
+  background: var(--c-gold);
+  color: var(--c-void);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--f-display);
+  font-weight: 400;
+  /* Editorial style */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* =========================
+   3. CINEMATIC UTILITIES
+========================= */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-cinematic {
+  padding: clamp(6rem, 15vh, 12rem) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Text Gradients */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--c-gold-light) 0%, var(--c-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Glass Surface */
+.surface-glass {
+  background: var(--glass-card);
+  backdrop-filter: var(--blur-soft);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+}
+
+/* =========================
+   4. ADVANCED ANIMATIONS
+========================= */
+/* Fade Up Reveal */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-stagger>* {
+  opacity: 0;
+  animation: revealUp 1s var(--ease-cinema) forwards;
+}
+
+.reveal-stagger>*:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.reveal-stagger>*:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.reveal-stagger>*:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.reveal-stagger>*:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Parallax Wrapper */
+.parallax-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+/* 3D Perspective Context */
+.perspective-3d {
+  perspective: 1200px;
+}
+
+/* =========================
+   5. COMPONENT: NAVBAR (SMART)
+========================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 0;
+  transition: all 0.6s var(--ease-cinema);
+}
+
+.navbar.scrolled {
+  padding: 1rem 0;
+  background: var(--glass-nav);
+  backdrop-filter: var(--blur-strong);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Nav Link Hover - Magnetic Line */
+.nav-link {
+  position: relative;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--c-mist);
+  padding: 0.5rem 0;
+  transition: color 0.4s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--c-gold);
+  transition: width 0.4s var(--ease-spring);
+}
+
+.nav-link:hover {
+  color: var(--c-white);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   6. COMPONENT: HERO (IMMERSIVE)
+========================= */
+.hero-section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 10px;
+  /* CSS Parallax trick */
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: -10%;
+  /* Oversize for parallax movement */
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle at center, rgba(2, 6, 23, 0.4) 0%, #020617 90%),
+    linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  z-index: 0;
+  will-change: transform;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  mix-blend-mode: overlay;
+  /* Cool blend effect? Maybe test. */
+  mix-blend-mode: normal;
+}
+
+.hero-title {
+  font-size: var(--text-hero);
+  font-weight: 300;
+  line-height: 0.95;
+  margin-bottom: 2rem;
+  letter-spacing: -0.03em;
+  text-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================
+   7. COMPONENT: CARDS & LISTS
+========================= */
+.card-3d {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 3rem;
+  transition: transform 0.5s var(--ease-cinema), box-shadow 0.5s ease, border-color 0.5s ease;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-3d:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(212, 163, 115, 0.3);
+  /* Gold hint */
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Glow Effect helper */
+.card-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-3d:hover::before {
+  opacity: 1;
+}
+
+
+/* =========================
+   8. FOOTER (EPIC)
+========================= */
+.footer-epic {
+  background: var(--c-void);
+  padding: 8rem 0 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* =========================
+   9. MOBILE OPTIMIZATIONS
+========================= */
+@media (max-width: 768px) {
+  .section-cinematic {
+    padding: 6rem 0;
+  }
+
+  .hero-title {
+    font-size: 15vw;
+    /* Massive on mobile */
+  }
+
+  /* Full Screen Mobile Menu */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--c-void);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
